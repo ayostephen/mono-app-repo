@@ -66,7 +66,7 @@ pipeline{
                 type: 'war']],
                 credentialsId: 'nexus-cred',
                 groupId: 'Petclinic',
-                nexusUrl: 'nexus.hullerdata.com',
+                nexusUrl: 'nexus.sternwatch.com',
                 nexusVersion: 'nexus3',
                 protocol: 'https',
                 repository: 'nexus-repo',
@@ -116,9 +116,9 @@ pipeline{
         stage('check stage website availability') {
             steps {
                  sh "sleep 90"
-                 sh "curl -s -o /dev/null -w \"%{http_code}\" https://stage.hullerdata.com"
+                 sh "curl -s -o /dev/null -w \"%{http_code}\" https://stage.sternwatch.com"
                 script {
-                    def response = sh(script: "curl -s -o /dev/null -w \"%{http_code}\" https://stage.hullerdata.com", returnStdout: true).trim()
+                    def response = sh(script: "curl -s -o /dev/null -w \"%{http_code}\" https://stage.sternwatch.com", returnStdout: true).trim()
                     if (response == "200") {
                         slackSend(color: 'good', message: "The stage petclinic java application is up and running with HTTP status code ${response}.", tokenCredentialId: 'slack-cred')
                     } else {
@@ -144,9 +144,9 @@ pipeline{
         stage('check prod website availability') {
             steps {
                  sh "sleep 90"
-                 sh "curl -s -o /dev/null -w \"%{http_code}\" https://prod.hullerdata.com"
+                 sh "curl -s -o /dev/null -w \"%{http_code}\" https://prod.sternwatch.com"
                 script {
-                    def response = sh(script: "curl -s -o /dev/null -w \"%{http_code}\" https://prod.hullerdata.com", returnStdout: true).trim()
+                    def response = sh(script: "curl -s -o /dev/null -w \"%{http_code}\" https://prod.sternwatch.com", returnStdout: true).trim()
                     if (response == "200") {
                         slackSend(color: 'good', message: "The prod petclinic java application is up and running with HTTP status code ${response}.", tokenCredentialId: 'slack-cred')
                     } else {
