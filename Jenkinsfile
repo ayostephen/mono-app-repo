@@ -9,7 +9,7 @@ pipeline{
         NVDKEY  = credentials('nvd-key')
         ANSIBLE_IP  = credentials('ansible-ip')
         SLACK_CRED = credentials('slack-cred')
-        
+    }
     stages {
         stage('Code Analysis') {
             steps {
@@ -31,9 +31,9 @@ pipeline{
                 dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
             }
         }
-        stage('SAST report slack notification') {
+        stage('STAST report slack notification') {
             steps {
-                slackSend channel: "U08AJNQDR60", message: 'Security Scan report generated and waiting for review before approval ', teamDomain: 'Cloudhight', tokenCredentialId: 'slack-cred'
+                slackSend channel: 'U08AJNQDR60', message: 'Security Scan report generated and waiting for review before approval ', teamDomain: 'Cloudhight', tokenCredentialId: 'slack-cred'
             }
         }
         stage('Security cleared Approval') {
@@ -96,7 +96,7 @@ pipeline{
         }
         stage('Trivy report slack notification') {
             steps {
-                slackSend channel: "U08AJNQDR60" , message: 'Image Security Scan report generated and waiting for review before approval ', teamDomain: 'Cloudhight', tokenCredentialId: 'slack-cred'
+                slackSend channel: 'U08AJNQDR60', message: 'Image Security Scan report generated and waiting for review before approval ', teamDomain: 'Cloudhight', tokenCredentialId: 'slack-cred'
             }
         }
         stage('Security cleared Approval (trivy)') {
@@ -156,5 +156,4 @@ pipeline{
             }
         }
     }
-}
 }
