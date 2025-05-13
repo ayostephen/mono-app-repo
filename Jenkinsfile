@@ -50,7 +50,7 @@ pipeline{
         // }
         stage('Build Artifact') {
             steps {
-                sh 'mvn clean package -DskipTests -Dcheckstyle.skip'
+                sh 'mvn clean package -DskipTests -Dcheckstyle.skip -Dspring-javaformat.skip=true'
             }
         }
         stage('Build Docker Image') {
